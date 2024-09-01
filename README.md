@@ -1,73 +1,80 @@
-# Medical Data Visualizer
+# Medical Examination Data Analysis and Visualization
 
-This project involves visualizing and analyzing medical examination data using Python libraries like Pandas, Matplotlib, and Seaborn. The data includes various patient measurements, blood test results, and lifestyle choices. The goal is to explore relationships between cardiac disease, body measurements, blood markers, and lifestyle factors.
+This project involves visualizing and analyzing medical examination data using Python libraries such as `matplotlib`, `seaborn`, and `pandas`. The data represents various health and lifestyle metrics collected from patients during medical examinations. This project explores the relationship between cardiovascular disease, body measurements, blood markers, and lifestyle choices.
 
-## Data Description
+## Project Overview
 
-- **File name**: `medical_examination.csv`
-- The rows represent individual patients, while columns provide information about body measurements, blood test results, and lifestyle choices.
+The aim of this project is to provide insights into medical data through data visualization and statistical calculations. We explore key health metrics and visualize their impact on cardiovascular health, creating categorical plots and a heatmap to represent the data effectively.
 
-| Feature                              | Variable Type        | Variable        | Value Type                          |
-|--------------------------------------|----------------------|-----------------|-------------------------------------|
-| Age                                  | Objective Feature    | age             | int (days)                          |
-| Height                               | Objective Feature    | height          | int (cm)                            |
-| Weight                               | Objective Feature    | weight          | float (kg)                          |
-| Gender                               | Objective Feature    | gender          | categorical code                    |
-| Systolic blood pressure              | Examination Feature  | ap_hi           | int                                 |
-| Diastolic blood pressure             | Examination Feature  | ap_lo           | int                                 |
-| Cholesterol                          | Examination Feature  | cholesterol     | 1: normal, 2: above normal, 3: well above normal |
-| Glucose                              | Examination Feature  | gluc            | 1: normal, 2: above normal, 3: well above normal |
-| Smoking                              | Subjective Feature   | smoke           | binary                              |
-| Alcohol intake                       | Subjective Feature   | alco            | binary                              |
-| Physical activity                    | Subjective Feature   | active          | binary                              |
-| Presence or absence of cardiovascular disease | Target Variable     | cardio          | binary                              |
+## Dataset Description
 
-## Tasks
+- **File Name**: `medical_examination.csv`
+- **Dataset**: Each row represents a patient, and each column represents patient information, such as body measurements, blood test results, and lifestyle choices.
 
-The goal is to create a series of visualizations and analyses based on the data. The steps are as follows:
+### Features and Variable Descriptions
 
-1. **Add an Overweight Column**:
-   - Calculate BMI by dividing weight in kilograms by the square of height in meters.
-   - Mark a person as overweight if their BMI is greater than 25 (1 for overweight, 0 otherwise).
+| Feature                     | Variable Type        | Value Type                                  |
+|-----------------------------|----------------------|---------------------------------------------|
+| Age                         | Objective Feature    | Age in days (int)                           |
+| Height                      | Objective Feature    | Height in cm (int)                          |
+| Weight                      | Objective Feature    | Weight in kg (float)                        |
+| Gender                      | Objective Feature    | Categorical code (1: Female, 2: Male)       |
+| Systolic blood pressure     | Examination Feature  | `ap_hi` (int)                               |
+| Diastolic blood pressure    | Examination Feature  | `ap_lo` (int)                               |
+| Cholesterol                 | Examination Feature  | 1: normal, 2: above normal, 3: well above normal |
+| Glucose                     | Examination Feature  | 1: normal, 2: above normal, 3: well above normal |
+| Smoking                     | Subjective Feature   | Binary (0: No, 1: Yes)                      |
+| Alcohol intake              | Subjective Feature   | Binary (0: No, 1: Yes)                      |
+| Physical activity           | Subjective Feature   | Binary (0: No, 1: Yes)                      |
+| Presence of cardiovascular disease | Target Variable | Binary (0: No, 1: Yes)                      |
 
-2. **Normalize Data**:
-   - Convert the cholesterol and glucose columns by setting values of 1 to 0 (good) and values greater than 1 to 1 (bad).
+## Tasks Performed
 
-3. **Create a Categorical Plot**:
-   - Convert the DataFrame into long format using `pd.melt()` to include the variables: cholesterol, gluc, smoke, alco, active, and overweight.
-   - Use Seaborn’s `catplot()` to create a chart showing counts of each feature grouped by the presence or absence of cardiovascular disease (`cardio`). 
+1. **Data Cleaning and Preparation:**
+   - Added an `overweight` column by calculating BMI (weight divided by height squared). If BMI > 25, set to 1 (overweight), else set to 0 (not overweight).
+   - Normalized `cholesterol` and `gluc` values to indicate good (0) and bad (1) levels.
+   - Removed incorrect data points:
+     - Diastolic pressure higher than systolic.
+     - Height and weight values outside the 2.5th and 97.5th percentiles.
 
-4. **Clean the Data**:
-   - Filter out erroneous data:
-     - Remove rows where diastolic pressure (`ap_lo`) is higher than systolic pressure (`ap_hi`).
-     - Exclude data points that fall outside the 2.5th and 97.5th percentiles for height and weight.
+2. **Data Visualization:**
+   - Created categorical plots (`catplot`) using Seaborn to show value counts of categorical features (`cholesterol`, `gluc`, `smoke`, `alco`, `active`, and `overweight`), split by cardiovascular disease presence (`cardio`).
+   - Generated a heatmap to visualize the correlation between different health indicators.
 
-5. **Create a Heat Map**:
-   - Clean the data further to remove outliers based on height and weight percentiles.
-   - Calculate the correlation matrix and visualize it using Seaborn’s `heatmap()`, masking the upper triangle of the matrix.
+## Key Insights
 
-## Instructions
+- **Categorical Plots**: Show the distribution of good and bad values for key health indicators split by the presence of cardiovascular disease.
+- **Heatmap**: Reveals the relationships and correlations between various health metrics, offering a deeper understanding of the data.
 
-The code is implemented in `medical_data_visualizer.py`. Follow these instructions to complete the tasks:
+## How to Run the Project
 
-1. **Import the data** from `medical_examination.csv` into a DataFrame called `df`.
-2. **Add the overweight column** to the DataFrame.
-3. **Normalize the data** for cholesterol and glucose.
-4. **Create the categorical plot** using Seaborn's `catplot()` function.
-5. **Clean the data** to remove erroneous rows based on specific conditions.
-6. **Create the heat map** by plotting the correlation matrix.
+1. **Install Dependencies**:
+   Ensure you have Python installed, along with the necessary libraries:
 
-## Development
+   ```bash
+   pip install pandas seaborn matplotlib
+   ```
 
-- Write your code in `medical_data_visualizer.py`. 
-- Use `main.py` to test your code during development.
+2. **Run the Analysis**:
+   Use the provided Python scripts to load, clean, and visualize the data:
 
-## Testing
+   ```bash
+   python medical_data_visualizer.py
+   ```
 
-- Unit tests are provided in `test_module.py`.
-- Tests are automatically imported into `main.py` for convenience.
+3. **Testing**:
+   Unit tests are included in `test_module.py`. Run the tests with:
 
-## Example Output
+   ```bash
+   python -m unittest test_module.py
+   ```
 
-- **Categorical Plot**: Displays counts of good and bad outcomes for cholesterol, gluc, alco, active, and smoke variables split by cardiovascular condition (`cardio`).
-- **Heat Map**: Visualizes correlations between various features in the dataset.
+## Conclusion
+
+This project provides a comprehensive analysis of medical examination data, offering insights into the relationship between health metrics and cardiovascular disease. The visualizations and calculations help in understanding the impact of lifestyle choices and body measurements on heart health.
+
+Feel free to explore the project, run the code, and gain insights from the data visualizations.
+
+## License
+
+This project is licensed under the MIT License.
